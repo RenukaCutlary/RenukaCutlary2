@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Contact Us | Let’s Connect</title>
+  <!-- Google Fonts + Font Awesome 6 (Free Icons) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f1f5f9 0%, #e6edf4 100%);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      color: #0f172a;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* main card container */
+    .contact-wrapper {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 0;
+    }
+
+    /* LEFT SIDE — contact info & socials */
+    .contact-info-panel {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .info-brand {
+      margin-bottom: 2rem;
+    }
+
+    .info-brand h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-brand .highlight {
+      background: linear-gradient(135deg, #a5f3fc, #818cf8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .info-brand p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    .info-details {
+      margin: 2rem 0 2rem 0;
+      flex: 1;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .detail-item i {
+      font-size: 1.4rem;
+      width: 2rem;
+      color: #818cf8;
+      margin-top: 0.2rem;
+    }
+
+    .detail-item h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-item p, .detail-item a {
+      font-size: 0.9rem;
+      color: #cbd5e6;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .detail-item a:hover {
+      color: #a5f3fc;
+      text-decoration: underline;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.4rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      color: #e2e8f0;
+      font-size: 1.2rem;
+      transition: all 0.25s;
+    }
+
+    .social-links a:hover {
+      background: #818cf8;
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* RIGHT SIDE — form panel */
+    .contact-form-panel {
+      background: white;
+      padding: 2.5rem 2rem;
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    .form-header h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    .form-header p {
+      color: #475569;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #334155;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-group label i {
+      margin-right: 0.4rem;
+      color: #6366f1;
+      font-size: 0.8rem;
+    }
+
+    .input-group input, 
+    .input-group textarea {
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 1rem;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      background: #fefefe;
+      color: #0f172a;
+    }
+
+    .input-group input:focus, 
+    .input-group textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      background: white;
+    }
+
+    .input-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .error-message {
+      font-size: 0.75rem;
+      color: #e11d48;
+      margin-top: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .error-message i {
+      font-size: 0.7rem;
+    }
+
+    .form-status {
+      margin: 1rem 0 1.2rem 0;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      font-size: 0.85rem;
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .form-status.success {
+      background: #e0f2fe;
+      color: #0c4a6e;
+      border-left: 4px solid #0ea5e9;
+      display: flex;
+    }
+
+    .form-status.error {
+      background: #ffe4e6;
+      color: #9f1239;
+      border-left: 4px solid #e11d48;
+      display: flex;
+    }
+
+    .submit-btn {
+      background: linear-gradient(95deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      justify-content: center;
+    }
+
+    .submit-btn i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(95deg, #1e293b 0%, #0f172a 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px -12px rgba(15, 23, 42, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* responsive */
+    @media (max-width: 880px) {
+      body {
+        padding: 1.2rem;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .contact-info-panel {
+        border-radius: 2rem 2rem 0 0;
+      }
+      .contact-form-panel {
+        border-radius: 0 0 2rem 2rem;
+      }
+      .info-brand h2 {
+        font-size: 1.7rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-info-panel, .contact-form-panel {
+        padding: 1.8rem;
+      }
+      .detail-item {
+        gap: 0.8rem;
+      }
+    }
+
+    /* small decorative */
+    .attribution {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #475569;
+      margin-top: 1.8rem;
+    }
+    .attribution a {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div class="contact-wrapper">
+  <div class="contact-card">
+    <div class="contact-grid">
+      <!-- LEFT: Contact info & social -->
+      <div class="contact-info-panel">
+        <div class="info-brand">
+          <h2>Let’s <span class="highlight">connect</span></h2>
+          <p>We’re just a message away. Whether you have a project, a question, or just want to say hello — we’d love to hear from you.</p>
+        </div>
+
+        <div class="info-details">
+          <div class="detail-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <h4>Visit us</h4>
+              <p>Shop no. 15 , Vaishnavi Complex <br>Soma Talav , Vadodara-390025</p>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <h4>Email us</h4>
+              <a href="mailto:hello@example.com">RenukaCutlary@gmail.com</a>
+              <p>Response within 24h</p>
+            </div>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-phone-alt"></i>
+            <div>
+              <h4>Call / SMS</h4>
+              <a href="tel:+11234567890">+91 9408090552 </a>
+              <p>Mon-Fri, 10am – 8pm </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Form -->
+      <div class="contact-form-panel">
+        <div class="form-header">
+          <h3>Send a message</h3>
+          <p>Fill out the form below and we’ll get back to you shortly.</p>
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="input-group" id="nameGroup">
+            <label><i class="far fa-user"></i> Full name *</label>
+            <input type="text" id="fullName" placeholder="Alex Morgan" autocomplete="name">
+            <div class="error-message" id="nameError"></div>
+          </div>
+
+          <div class="input-group" id="emailGroup">
+            <label><i class="far fa-envelope"></i> Email address *</label>
+            <input type="email" id="emailAddr" placeholder="hello@example.com" autocomplete="email">
+            <div class="error-message" id="emailError"></div>
+          </div>
+
+          <div class="input-group" id="subjectGroup">
+            <label><i class="far fa-comment-dots"></i> Subject (optional)</label>
+            <input type="text" id="subjectLine" placeholder="e.g., Collaboration, Support, or just saying hi">
+            <div class="error-message" id="subjectError"></div>
+          </div>
+
+          <div class="input-group" id="messageGroup">
+            <label><i class="far fa-pen-to-square"></i> Message *</label>
+            <textarea id="msgContent" placeholder="Tell us what you're thinking..."></textarea>
+            <div class="error-message" id="messageError"></div>
+          </div>
+
+          <div class="form-status" id="formStatus"></div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="attribution">
+    🌟 Reliable contact form — demo ready | <a href="#">Privacy</a> • <a href="#">Support</a>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const form = document.getElementById('contactForm');
+    const fullNameInput = document.getElementById('fullName');
+    const emailInput = document.getElementById('emailAddr');
+    const subjectInput = document.getElementById('subjectLine');
+    const messageInput = document.getElementById('msgContent');
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatusDiv = document.getElementById('formStatus');
+
+    // error containers
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const subjectError = document.getElementById('subjectError');
+    const messageError = document.getElementById('messageError');
+
+    // Helper: clear all error messages and status
+    function clearErrors() {
+      nameError.innerHTML = '';
+      emailError.innerHTML = '';
+      subjectError.innerHTML = '';
+      messageError.innerHTML = '';
+      
+      // remove error borders styling
+      document.querySelectorAll('.input-group input, .input-group textarea').forEach(field => {
+        field.style.borderColor = '#e2e8f0';
+      });
+    }
+
+    // Helper: set field error style and message
+    function setFieldError(fieldId, errorMsg, errorElement) {
+      const field = document.getElementById(fieldId);
+      if (field) field.style.borderColor = '#e11d48';
+      if (errorElement) errorElement.innerHTML = errorMsg ? `<i class="fas fa-exclamation-circle"></i> ${errorMsg}` : '';
+    }
+
+    // validation logic
+    function validateForm() {
+      let isValid = true;
+      clearErrors();
+
+      // 1. Full name (required, at least 2 letters)
+      const name = fullNameInput.value.trim();
+      if (name === '') {
+        setFieldError('fullName', 'Full name is required', nameError);
+        isValid = false;
+      } else if (name.length < 2) {
+        setFieldError('fullName', 'Name must be at least 2 characters', nameError);
+        isValid = false;
+      } else if (!/^[a-zA-Z\u00C0-\u00FF\s.'-]+$/.test(name)) {
+        setFieldError('fullName', 'Use letters, spaces, or simple punctuation', nameError);
+        isValid = false;
+      } else {
+        document.getElementById('fullName').style.borderColor = '#e2e8f0';
+      }
+
+      // 2. Email (required + valid format)
+      const email = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+      if (email === '') {
+        setFieldError('emailAddr', 'Email address is required', emailError);
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        setFieldError('emailAddr', 'Enter a valid email (e.g., name@domain.com)', emailError);
+        isValid = false;
+      } else {
+        document.getElementById('emailAddr').style.borderColor = '#e2e8f0';
+      }
+
+      // 3. Subject (optional - but we can trim but no error if empty, but we do minimal sanitization)
+      const subject = subjectInput.value.trim();
+      if (subject.length > 100) {
+        setFieldError('subjectLine', 'Subject must be under 100 characters', subjectError);
+        isValid = false;
+      } else {
+        document.getElementById('subjectLine').style.borderColor = '#e2e8f0';
+        subjectError.innerHTML = '';
+      }
+
+      // 4. Message (required, at least 10 chars for meaningful message)
+      const message = messageInput.value.trim();
+      if (message === '') {
+        setFieldError('msgContent', 'Message cannot be empty', messageError);
+        isValid = false;
+      } else if (message.length < 5) {
+        setFieldError('msgContent', 'Message must be at least 5 characters', messageError);
+        isValid = false;
+      } else {
+        document.getElementById('msgContent').style.borderColor = '#e2e8f0';
+      }
+
+      return isValid;
+    }
+
+    // simulate async send (demo) — clear form, show success
+    function simulateSendMessage(formData) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          console.log('📨 Demo message sent:', formData);
+          resolve(true);
+        }, 800);
+      });
+    }
+
+    // reset form fields after successful send
+    function resetFormFields() {
+      fullNameInput.value = '';
+      emailInput.value = '';
+      subjectInput.value = '';
+      messageInput.value = '';
+      // clear any leftover border styles
+      [fullNameInput, emailInput, subjectInput, messageInput].forEach(field => {
+        field.style.borderColor = '#e2e8f0';
+      });
+    }
+
+    // show status message
+    function showStatus(message, type) {
+      formStatusDiv.innerHTML = '';
+      const icon = type === 'success' ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-exclamation-triangle"></i>';
+      formStatusDiv.innerHTML = `${icon} ${message}`;
+      formStatusDiv.className = `form-status ${type}`;
+      
+      // auto hide after 5 sec for success, but keep error until new attempt
+      if (type === 'success') {
+        setTimeout(() => {
+          if (formStatusDiv.classList.contains('success')) {
+            formStatusDiv.style.display = 'none';
+            formStatusDiv.className = 'form-status';
+          }
+        }, 5000);
+      } else {
+        // error: scroll into view? optional
+        setTimeout(() => {
+          formStatusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
+
+    // main submit handler
+    async function handleSubmit(e) {
+      e.preventDefault();
+      
+      // clear previous status (but keep hidden)
+      formStatusDiv.style.display = 'none';
+      formStatusDiv.className = 'form-status';
+      
+      // validate fields
+      const valid = validateForm();
+      if (!valid) {
+        // show brief error summary at top
+        showStatus('Please fix the highlighted fields before sending.', 'error');
+        formStatusDiv.style.display = 'flex';
+        return;
+      }
+      
+      // disable button to avoid double submit
+      submitBtn.disabled = true;
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending...';
+      
+      // gather data
+      const payload = {
+        name: fullNameInput.value.trim(),
+        email: emailInput.value.trim(),
+        subject: subjectInput.value.trim() || '(no subject)',
+        message: messageInput.value.trim(),
+        timestamp: new Date().toISOString()
+      };
+      
+      try {
+        await simulateSendMessage(payload);
+        // success flow
+        resetFormFields();
+        showStatus('✨ Message sent successfully! We’ll reach out soon.', 'success');
+        formStatusDiv.style.display = 'flex';
+        // optional: clear any lingering error messages
+        clearErrors();
+      } catch (err) {
+        console.error(err);
+        showStatus('Oops! Something went wrong. Please try again later.', 'error');
+        formStatusDiv.style.display = 'flex';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        // smooth scroll to status if needed
+        if (formStatusDiv.style.display === 'flex') {
+          formStatusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    }
+    
+    // attach event listener
+    form.addEventListener('submit', handleSubmit);
+    
+    // live clear of individual field error when user starts typing (UX improvement)
+    const clearFieldErrorOnInput = (inputId, errorElement, fieldElement) => {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.addEventListener('input', function() {
+          if (errorElement) errorElement.innerHTML = '';
+          this.style.borderColor = '#e2e8f0';
+          // also hide global status if visible & was error? just optional
+          if (formStatusDiv.classList.contains('error')) {
+            formStatusDiv.style.display = 'none';
+            formStatusDiv.className = 'form-status';
+          }
+        });
+      }
+    };
+    
+    clearFieldErrorOnInput('fullName', nameError, fullNameInput);
+    clearFieldErrorOnInput('emailAddr', emailError, emailInput);
+    clearFieldErrorOnInput('subjectLine', subjectError, subjectInput);
+    clearFieldErrorOnInput('msgContent', messageError, messageInput);
+    
+    // optional: prevent browser default validation bubble
+    form.setAttribute('novalidate', 'true');
+  })();
+</script>
+</body>
+</html>

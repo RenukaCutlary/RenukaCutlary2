@@ -1,0 +1,169 @@
+/* Reset */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f5f7fa;
+padding:40px;
+}
+
+/* Title */
+
+h2{
+margin-bottom:30px;
+font-size:28px;
+color:#222;
+}
+
+/* Cart Grid */
+
+.cart-grid{
+display:grid;
+grid-template-columns: repeat(3, 1fr);
+gap:25px;
+}
+
+/* Cart Item */
+
+.cart-item{
+background:white;
+border-radius:12px;
+padding:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+text-align:center;
+transition:0.3s;
+}
+
+.cart-item:hover{
+transform:translateY(-5px);
+}
+
+/* Product Image */
+
+.cart-item img{
+width:100%;
+max-width:150px;
+margin:auto;
+margin-bottom:15px;
+border-radius:10px;
+}
+
+/* Product Name */
+
+.product-name{
+font-size:18px;
+font-weight:600;
+margin-bottom:8px;
+}
+
+/* Price */
+
+.product-price{
+color:#555;
+margin-bottom:15px;
+}
+
+/* Quantity */
+
+.quantity{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-bottom:15px;
+}
+
+.quantity button{
+width:30px;
+height:30px;
+border:none;
+background:#eee;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+.quantity button:hover{
+background:#ddd;
+}
+
+/* Remove Button */
+
+.remove-btn{
+background:#ff4d4d;
+border:none;
+color:white;
+padding:6px 14px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.remove-btn:hover{
+background:#e60000;
+}
+
+/* Summary */
+
+.cart-summary{
+margin-top:40px;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* Checkout */
+
+#checkoutBtn{
+background:#007bff;
+color:white;
+border:none;
+padding:12px 24px;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+#checkoutBtn:hover{
+background:#0056b3;
+}
+
+/* Back Button */
+
+a button{
+margin-top:25px;
+padding:10px 20px;
+border:none;
+background:#444;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width:768px){
+
+.cart-grid{
+grid-template-columns:1fr;
+}
+
+.cart-summary{
+flex-direction:column;
+gap:15px;
+align-items:flex-start;
+}
+
+#checkoutBtn{
+width:100%;
+}
+
+}

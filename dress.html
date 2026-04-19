@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title> Dress Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background-color: #fefaf5;
+            color: #2d241e;
+            scroll-behavior: smooth;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navigator {
+            background: rgba(255, 252, 245, 0.98);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f0e2d4;
+        }
+
+        .nav-bar {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 2rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-links .menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .menu-links .menu li a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #3b2c24;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .menu-links .menu li a:hover {
+            color: #b45f3b;
+            border-bottom: 2px solid #b45f3b;
+            padding-bottom: 4px;
+        }
+
+        #check, .close-menu, .open-menu {
+            display: none;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.4rem;
+            align-items: center;
+        }
+
+        .icon svg {
+            fill: #3a2c28;
+            transition: 0.2s;
+        }
+
+        .icon:hover svg {
+            fill: #b45f3b;
+        }
+
+        @media (max-width: 820px) {
+            .menu-links .menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                background: #fffaf5;
+                width: 280px;
+                height: 100vh;
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                box-shadow: 5px 0 25px rgba(0,0,0,0.05);
+                transition: 0.3s;
+                z-index: 200;
+                padding: 2rem;
+                border-right: 1px solid #f0e0ce;
+            }
+            .open-menu {
+                display: block;
+                font-size: 1.8rem;
+                cursor: pointer;
+                color: #3a2c28;
+            }
+            .close-menu {
+                position: absolute;
+                top: 1.5rem;
+                right: 1.8rem;
+                font-size: 1.8rem;
+                cursor: pointer;
+                display: block;
+            }
+            #check:checked ~ .menu {
+                left: 0;
+            }
+            .nav-bar {
+                padding: 0.7rem 1.2rem;
+            }
+        }
+
+        /* ===== MAIN PAGE ===== */
+        .page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+        }
+
+        .page > header h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #9b5e3c, #c97e56);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+            border-bottom: 3px solid #e7cfb5;
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page > header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .subhead {
+            color: #7e5a46;
+            font-size: 1rem;
+            margin-top: 6px;
+        }
+
+        /* ===== PRODUCT GRID ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+            opacity: 1;
+        }
+
+        .grid.hidden {
+            opacity: 1;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f2e6dc;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 34px -12px rgba(0, 0, 0, 0.12);
+            border-color: #e2cfbe;
+        }
+
+        .media {
+            position: relative;
+            overflow: hidden;
+            background: #f7ede4;
+            aspect-ratio: 3 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dressimg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .dressimg {
+            transform: scale(1.04);
+        }
+
+        .card-body {
+            padding: 1.2rem 1.2rem 1.5rem;
+        }
+
+        .product-info {
+            margin-top: 0.2rem;
+        }
+
+        .product-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2b221c;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.4rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .stars {
+            color: #f5b342;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .star-empty {
+            color: #ddd2c4;
+        }
+
+        .review-count {
+            font-size: 0.75rem;
+            color: #7f6b5c;
+        }
+
+        .price {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 6px 0 12px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #aa8e78;
+            font-size: 0.85rem;
+        }
+
+        .new-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #b45f3b;
+        }
+
+        .actions {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-cart, .btn-wishlist {
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .btn-cart {
+            background: #2d241e;
+            color: white;
+            padding: 8px 18px;
+            flex: 1;
+        }
+
+        .btn-cart i {
+            font-size: 0.9rem;
+        }
+
+        .btn-wishlist {
+            background: #f5ede6;
+            color: #6b4c38;
+            width: 42px;
+            padding: 8px 0;
+            font-size: 1rem;
+        }
+
+        .btn-cart:hover {
+            background: #b45f3b;
+            transform: scale(0.97);
+        }
+
+        .btn-wishlist:hover {
+            background: #ffded0;
+            color: #b45f3b;
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: #191411;
+            color: #e7dfd7;
+            margin-top: 3rem;
+            padding: 2.5rem 2rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .footer-column .logo {
+            height: 52px;
+            margin-bottom: 0.8rem;
+            filter: brightness(0.9);
+            background: #fff9f2;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .footer-text {
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            color: #f0cfb0;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul li a {
+            color: #cfc5bb;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #f0cfb0;
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #2e2823;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: #1e1915e6;
+            backdrop-filter: blur(10px);
+            color: #faf0e6;
+            padding: 12px 26px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 1.2rem;
+            }
+            .page > header h1 {
+                font-size: 2.2rem;
+            }
+            .toast-message {
+                white-space: normal;
+                text-align: center;
+                width: 85%;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* card animation */
+        .card {
+            animation: fadeUp 0.5s ease backwards;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card:nth-child(1) { animation-delay: 0.02s; }
+        .card:nth-child(2) { animation-delay: 0.07s; }
+        .card:nth-child(3) { animation-delay: 0.12s; }
+        .card:nth-child(4) { animation-delay: 0.17s; }
+        .card:nth-child(5) { animation-delay: 0.22s; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="navigator">
+        <div class="nav-bar">
+            <img class="logo" src="ChatGPT Image Oct 28, 2025, 10_45_34 AM.png" alt="logo" 
+                 onerror="this.src='https://placehold.co/200x80?text=ELYSIAN'">
+            <ul class="menu-links">
+                <input type="checkbox" id="check">
+                <span class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Products.html">Our Products</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                    <li><a href="lookbook.html">Lookbook</a></li>
+                    <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+                </span>
+                <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html" class="icon" title="Login">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+                    </svg>
+                </a>
+                <a href="cart.html" class="icon" title="Cart">
+                    <svg viewBox="0 0 24 24" width="22" height="22">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14h9.9c.8 0 1.5-.5 1.8-1.2l3.3-6.1-1.7-.9-3 5.5H8.1L4.6 4H1v2h2.2l3.6 7.6-1.3 2.4C4.8 16.4 5.4 17 6.1 17H19v-2H7.2z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="page" role="main">
+    <header>
+        <h1>✨ DRESS COLLECTION</h1>
+        <p class="subhead">Ethnic elegance • contemporary silhouettes</p>
+    </header>
+
+    <section class="grid" aria-label="Dresses grid">
+        <!-- Product 1 - Mayuri Bandhani -->
+        <article class="card" data-name="Mayuri Bandhani Dress" data-price="1099">
+            <div class="media">
+                <a href="colours.html">
+                    <img class="dressimg" src="dress1.jpeg" alt="Mayuri Bandhani Dress">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="product-info">
+                    <h2 class="product-title">Mayuri Bandhani</h2>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="review-count">(124)</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Product 2 - Floral A-Line 
+        <article class="card" data-name="Floral A-Line Dress" data-price="1099">
+            <div class="media">
+                <a href="colours2.html">
+                    <img class="dressimg" src="https://placehold.co/600x800/dac2ab/c18457?text=Floral+A-Line" alt="Floral Dress">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="product-info">
+                    <h2 class="product-title">Gulmohar Floral</h2>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="review-count">(89)</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    -->    <!-- Product 3 - Ikat Print 
+        <article class="card" data-name="Ikat Print Dress" data-price="1099">
+            <div class="media">
+                <a href="colours3.html">
+                    <img class="dressimg" src="https://placehold.co/600x800/e7cfb9/d0875a?text=Ikat+Print" alt="Ikat Dress">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="product-info">
+                    <h2 class="product-title">Ikat Fusion</h2>
+                    <div class="rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="review-count">(210)</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+-->
+        <!-- Product 4 - Block Print Maxi
+        <article class="card" data-name="Block Print Maxi" data-price="1099">
+            <div class="media">
+                <a href="colours4.html">
+                    <img class="dressimg" src="https://placehold.co/600x800/d3baa0/b96f45?text=Block+Print" alt="Block Print Dress">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="product-info">
+                    <h2 class="product-title">Artisan Block Print</h2>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="review-count">(76)</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+ -->
+        <!-- Product 5 - Linen Pleated 
+        <article class="card" data-name="Linen Pleated Dress" data-price="1099">
+            <div class="media">
+                <a href="colours5.html">
+                    <img class="dressimg" src="https://placehold.co/600x800/e1c9b4/c2855b?text=Linen+Pleated" alt="Linen Dress">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="product-info">
+                    <h2 class="product-title">Linen Pleated</h2>
+                    
+                </div>
+            </div>
+        </article>-->
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <img class="logo" src="ChatGPT Image Oct 28, 2025, 10_45_34 AM.png" alt="Elysian" 
+                 onerror="this.src='https://placehold.co/200x80?text=ELYSIAN'">
+            <p class="footer-text">We offer a wide range of quality products to make your shopping experience smooth and enjoyable.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="lookbook.html">Lookbook</a></li>
+                <li><a href="Products.html">Products</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <p><strong>Phone:</strong> +91 9408090552</p>
+            <p><strong>Email:</strong> RenukaCutlary@gmail.com</p>
+            <p><strong>Address:</strong> Shop No. 15, Vaishnavi Complex, Soma Talav, Vadodara, PIN 390025</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 <strong>Renuka Cutlary | Elysian Dresses</strong>. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<div id="dynamicToast" class="toast-message">✨ Added to cart</div>
+
+<script>
+    (function() {
+        // Remove hidden class if any
+        const gridSection = document.querySelector('.grid');
+        if(gridSection && gridSection.classList.contains('hidden')) {
+            gridSection.classList.remove('hidden');
+        }
+
+        // Toast notification system
+        const toastEl = document.getElementById('dynamicToast');
+        function showToast(message) {
+            if(toastEl) {
+                toastEl.textContent = message;
+                toastEl.style.opacity = '1';
+                toastEl.style.transform = 'translateX(-50%) scale(1)';
+                setTimeout(() => {
+                    toastEl.style.opacity = '0';
+                    toastEl.style.transform = 'translateX(-50%) scale(0.9)';
+                }, 1800);
+            }
+        }
+
+        // Cart & Wishlist storage helpers
+        function addToCartStorage(productName, price, imageSrc) {
+            let cart = JSON.parse(localStorage.getItem('dress_cart') || '[]');
+            cart.push({
+                id: Date.now(),
+                name: productName,
+                price: price,
+                image: imageSrc,
+                quantity: 1,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('dress_cart', JSON.stringify(cart));
+        }
+
+        function addToWishlistStorage(productName) {
+            let wish = JSON.parse(localStorage.getItem('dress_wishlist') || '[]');
+            if(!wish.includes(productName)) {
+                wish.push(productName);
+                localStorage.setItem('dress_wishlist', JSON.stringify(wish));
+            }
+        }
+
+        // Process each product card
+        const allCards = document.querySelectorAll('.card');
+        allCards.forEach(card => {
+            // Extract product details
+            const titleElem = card.querySelector('.product-title');
+            const priceElem = card.querySelector('.new-price');
+            const imgElem = card.querySelector('.dressimg');
+            
+            let productName = titleElem ? titleElem.innerText.trim() : 'Dress';
+            let priceText = priceElem ? priceElem.innerText.replace('RS.', '').replace(/[^0-9.]/g, '') : '1099';
+            let productPrice = parseFloat(priceText) || 1099;
+            let productImage = imgElem ? imgElem.src : '';
+            
+            // Override with dataset if present
+            if(card.dataset.name) productName = card.dataset.name;
+            if(card.dataset.price) productPrice = parseFloat(card.dataset.price);
+            
+            // Add to Cart button
+            const cartBtn = card.querySelector('.btn-cart');
+            if(cartBtn) {
+                const newCartBtn = cartBtn.cloneNode(true);
+                cartBtn.parentNode.replaceChild(newCartBtn, cartBtn);
+                newCartBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showToast(`🛍️ ${productName} added · ₹${productPrice.toFixed(2)}`);
+                    addToCartStorage(productName, productPrice, productImage);
+                    
+                    // Animate button
+                    const icon = newCartBtn.querySelector('i');
+                    if(icon) {
+                        icon.classList.remove('fa-shopping-bag');
+                        icon.classList.add('fa-check');
+                        setTimeout(() => {
+                            icon.classList.remove('fa-check');
+                            icon.classList.add('fa-shopping-bag');
+                        }, 800);
+                    }
+                });
+            }
+            
+            // Wishlist button
+            const wishBtn = card.querySelector('.btn-wishlist');
+            if(wishBtn) {
+                const newWishBtn = wishBtn.cloneNode(true);
+                wishBtn.parentNode.replaceChild(newWishBtn, wishBtn);
+                newWishBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showToast(`❤️ ${productName} saved to wishlist`);
+                    addToWishlistStorage(productName);
+                    
+                    const heartIcon = newWishBtn.querySelector('i');
+                    if(heartIcon) {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas', 'fa-heart');
+                        setTimeout(() => {
+                            heartIcon.classList.remove('fas', 'fa-heart');
+                            heartIcon.classList.add('far');
+                        }, 1000);
+                    }
+                });
+            }
+        });
+        
+        // Fix any broken images with fallback
+        const allImages = document.querySelectorAll('.dressimg');
+        allImages.forEach(img => {
+            img.addEventListener('error', function() {
+                if(!this.dataset.fixed) {
+                    this.dataset.fixed = 'true';
+                    this.src = 'https://placehold.co/600x800/f2e2d4/c2835a?text=Ethnic+Dress';
+                }
+            });
+        });
+        
+        // Ensure prices are properly formatted (no extra decimals)
+        document.querySelectorAll('.new-price').forEach(priceSpan => {
+            let raw = priceSpan.innerText.replace(/[^0-9.]/g, '');
+            let num = parseFloat(raw);
+            if(!isNaN(num) && raw.length > 0) {
+                priceSpan.innerText = `RS. ${num.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            }
+        });
+        
+        document.querySelectorAll('.old-price').forEach(oldSpan => {
+            let rawOld = oldSpan.innerText.replace(/[^0-9.]/g, '');
+            let numOld = parseFloat(rawOld);
+            if(!isNaN(numOld)) {
+                oldSpan.innerText = `RS. ${numOld.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+            }
+        });
+        
+        console.log('Dress collection page fully customized: interactive cart/wishlist, modern styling, responsive grid');
+    })();
+</script>
+</body>
+</html>

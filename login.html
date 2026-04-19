@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In | RenukaKetlary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f9f3ec 0%, #fff3e8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #2c2c2c;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0e6df;
+        }
+
+        #formTitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .google-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: white;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .google-btn:hover {
+            background: #f8f8f8;
+            border-color: #b1624b;
+            transform: translateY(-2px);
+        }
+
+        .google-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 30px);
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #b1624b;
+            box-shadow: 0 0 0 3px rgba(177, 98, 75, 0.1);
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .continue-btn:hover {
+            background: #b1624b;
+            transform: translateY(-2px);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .toggle-text a {
+            color: #b1624b;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-home a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-home a:hover {
+            color: #b1624b;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-card">
+            <h2 class="logo">RENUKA KETLARY</h2>
+            
+            <h3 id="formTitle">Welcome Back</h3>
+            <p class="subtitle">Sign in to continue shopping</p>
+
+            <button id="googleBtn" class="google-btn">
+                <i class="fab fa-google"></i>
+                Continue with Google
+            </button>
+
+            <div class="divider">
+                <span>or continue with email</span>
+            </div>
+
+            <input type="email" id="email" placeholder="Email address" required />
+            <input type="password" id="password" placeholder="Password" required />
+
+            <button id="loginBtn" class="continue-btn">Sign In</button>
+
+            <p class="toggle-text">
+                Don't have an account? <a href="#" onclick="showSignUp()">Sign Up</a>
+            </p>
+
+            <div class="back-home">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Module Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signInWithPopup, 
+            GoogleAuthProvider,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDtWPGZedQ2gwGYGDyJNc4-rM3LbWUsMtY",
+            authDomain: "renukacutlary.firebaseapp.com",
+            projectId: "renukacutlary",
+            storageBucket: "renukacutlary.firebasestorage.app",
+            messagingSenderId: "822608333582",
+            appId: "1:822608333582:web:044c9635805ba5125fa55f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        window.auth = auth;
+
+        // ✅ Clear localStorage when signed out, store only current user when signed in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUserId", user.uid);
+                localStorage.setItem("customerEmail", user.email);
+                localStorage.setItem("customerName", user.displayName || user.email.split('@')[0]);
+                if (user.photoURL) localStorage.setItem("profileImage", user.photoURL);
+                
+                if (window.location.pathname.includes("login.html")) {
+                    window.location.href = "index.html";
+                }
+            } else {
+                // Remove only session flags, NOT user-specific data (kept for next login)
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("currentUserId");
+                localStorage.removeItem("customerEmail");
+                localStorage.removeItem("customerName");
+                localStorage.removeItem("profileImage");
+                console.log("User signed out - session cleared");
+            }
+        });
+
+        window.emailSignIn = async function() {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            if (!email || !password) return alert("Please enter both email and password");
+            const loginBtn = document.getElementById("loginBtn");
+            const originalText = loginBtn.textContent;
+            loginBtn.textContent = "Signing in...";
+            loginBtn.disabled = true;
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUserId", user.uid);
+                localStorage.setItem("customerEmail", user.email);
+                localStorage.setItem("customerName", user.displayName || email.split('@')[0]);
+                alert("Login successful! ✅");
+                window.location.href = "index.html";
+            } catch (error) {
+                alert(error.code === 'auth/user-not-found' ? "No account found. Please sign up first." :
+                      error.code === 'auth/wrong-password' ? "Incorrect password." : "Login failed: " + error.message);
+            } finally {
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+            }
+        };
+        
+        window.emailSignUp = async function() {
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            if (!email || !password) return alert("Please enter both email and password");
+            if (password.length < 6) return alert("Password should be at least 6 characters");
+            const loginBtn = document.getElementById("loginBtn");
+            const originalText = loginBtn.textContent;
+            loginBtn.textContent = "Creating account...";
+            loginBtn.disabled = true;
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUserId", user.uid);
+                localStorage.setItem("customerEmail", user.email);
+                localStorage.setItem("customerName", email.split('@')[0]);
+                alert("Account created successfully! ✅");
+                window.location.href = "index.html";
+            } catch (error) {
+                alert(error.code === 'auth/email-already-in-use' ? "Email already in use. Please sign in instead." : "Signup failed: " + error.message);
+            } finally {
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+            }
+        };
+        
+        window.googleSignIn = async function() {
+            const googleBtn = document.getElementById("googleBtn");
+            const originalText = googleBtn.innerHTML;
+            googleBtn.innerHTML = '<i class="fab fa-google"></i> Connecting...';
+            googleBtn.disabled = true;
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUserId", user.uid);
+                localStorage.setItem("customerEmail", user.email);
+                localStorage.setItem("customerName", user.displayName);
+                if (user.photoURL) localStorage.setItem("profileImage", user.photoURL);
+                alert(`Welcome ${user.displayName}! ✅`);
+                window.location.href = "index.html";
+            } catch (error) {
+                alert(error.code === 'auth/popup-closed-by-user' ? "Sign-in cancelled." :
+                      error.code === 'auth/popup-blocked' ? "Popup blocked. Allow popups for this site." : "Google login failed: " + error.message);
+            } finally {
+                googleBtn.innerHTML = originalText;
+                googleBtn.disabled = false;
+            }
+        };
+        
+        let isSignUpMode = false;
+        window.showSignUp = function() {
+            isSignUpMode = true;
+            document.getElementById("formTitle").textContent = "Create Account";
+            document.getElementById("loginBtn").textContent = "Sign Up";
+            document.querySelector(".toggle-text").innerHTML = 'Already have an account? <a href="#" onclick="showSignIn()">Sign In</a>';
+        };
+        window.showSignIn = function() {
+            isSignUpMode = false;
+            document.getElementById("formTitle").textContent = "Welcome Back";
+            document.getElementById("loginBtn").textContent = "Sign In";
+            document.querySelector(".toggle-text").innerHTML = 'Don\'t have an account? <a href="#" onclick="showSignUp()">Sign Up</a>';
+        };
+        window.handleFormSubmit = function() {
+            isSignUpMode ? emailSignUp() : emailSignIn();
+        };
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("loginBtn").onclick = handleFormSubmit;
+            document.getElementById("googleBtn").onclick = googleSignIn;
+            document.querySelectorAll("input").forEach(input => {
+                input.onkeypress = e => { if (e.key === "Enter") handleFormSubmit(); };
+            });
+        });
+    </script>
+</body>
+</html>

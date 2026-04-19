@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | RenukaKetlary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f9f3ec 0%, #fff3e8 100%); min-height: 100vh; }
+        .navigator { background: #ffffff; border-bottom: 1px solid #eaeaea; position: sticky; top: 0; z-index: 1000; padding: 0.5rem 2rem; }
+        .nav-bar { display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; gap: 2rem; }
+        .logo { height: 50px; width: auto; object-fit: contain; }
+        .back-home-btn { display: flex; align-items: center; gap: 8px; color: #1a1a1a; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; background: #f5f5f5; }
+        .back-home-btn:hover { color: #b1624b; background: #f0e6df; }
+        .cart-container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .cart-header h1 { font-size: 2rem; font-weight: 500; color: #1a1a1a; }
+        .cart-header h1 i { color: #b1624b; margin-right: 10px; }
+        .customer-info { background: white; padding: 0.5rem 1rem; border-radius: 12px; color: #666; font-size: 0.9rem; }
+        .cart-layout { display: grid; grid-template-columns: 1fr 380px; gap: 2rem; }
+        .cart-grid { background: white; border-radius: 20px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .cart-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 1rem; padding: 1.5rem; border-bottom: 1px solid #f0e6df; transition: all 0.2s; }
+        .cart-item:hover { background: #fefaf7; transform: translateX(4px); }
+        .cart-item-image { width: 100px; height: 120px; object-fit: cover; border-radius: 12px; background: #f5f5f5; }
+        .cart-item-details { display: flex; flex-direction: column; gap: 0.5rem; }
+        .cart-item-title { font-size: 1.1rem; font-weight: 600; color: #1a1a1a; }
+        .cart-item-category { font-size: 0.8rem; color: #b1624b; text-transform: uppercase; }
+        .selected-size { background: #f0e6df; display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; color: #b1624b; width: fit-content; }
+        .cart-item-price { font-size: 1.2rem; font-weight: 600; color: #1a1a1a; }
+        .quantity-controls { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+        .quantity-btn { width: 30px; height: 30px; border: 1.5px solid #e0e0e0; background: white; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .quantity-btn:hover { background: #b1624b; color: white; border-color: #b1624b; }
+        .quantity { font-size: 1rem; font-weight: 500; min-width: 30px; text-align: center; }
+        .remove-item { background: none; border: none; color: #999; cursor: pointer; font-size: 1.2rem; padding: 8px; }
+        .remove-item:hover { color: #dc3545; transform: scale(1.1); }
+        .cart-summary { background: white; border-radius: 20px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: sticky; top: 80px; height: fit-content; }
+        .cart-summary h3 { font-size: 1.3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f0e6df; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem; }
+        .summary-row.total { margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f0e6df; font-size: 1.2rem; font-weight: 700; }
+        .summary-row.total span:last-child { color: #b1624b; font-size: 1.4rem; }
+        .checkout-btn { width: 100%; padding: 1rem; background: #1a1a1a; color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; margin-top: 1rem; }
+        .checkout-btn:hover { background: #b1624b; transform: translateY(-2px); }
+        .empty-cart { text-align: center; padding: 4rem 2rem; background: white; border-radius: 20px; }
+        .empty-cart i { font-size: 4rem; color: #ddd; margin-bottom: 1rem; }
+        .shop-now-btn { display: inline-block; padding: 0.8rem 2rem; background: #1a1a1a; color: white; text-decoration: none; border-radius: 12px; }
+        @media (max-width: 968px) { .cart-layout { grid-template-columns: 1fr; } .cart-summary { position: static; } }
+        @media (max-width: 768px) { .cart-item { grid-template-columns: 80px 1fr; position: relative; } .remove-item { position: absolute; top: 10px; right: 10px; } .cart-item-image { width: 80px; height: 100px; } }
+    </style>
+</head>
+<body>
+    <header><div class="navigator"><div class="nav-bar"><img class="logo" src="https://placehold.co/160x50/f8f0e5/8b5a2b?text=RenukaKetlary" alt="Logo"><a href="products.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Continue Shopping</a></div></div></header>
+    <div class="cart-container"><div class="cart-header"><h1><i class="fas fa-shopping-cart"></i> My Cart</h1><div class="customer-info" id="customer-display"><i class="fas fa-user"></i> Guest</div></div><div class="cart-layout"><div id="cart-items" class="cart-grid"></div><div class="cart-summary"><h3>Order Summary</h3><div class="summary-row total"><span>Total</span><span id="total">₹0</span></div><button id="checkoutBtn" class="checkout-btn"><i class="fas fa-lock"></i> Proceed to Checkout</button><a href="products.html" class="continue-shopping" style="display:block; text-align:center; margin-top:1rem; color:#666;"><i class="fas fa-arrow-left"></i> Continue Shopping</a></div></div></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDtWPGZedQ2gwGYGDyJNc4-rM3LbWUsMtY",
+            authDomain: "renukacutlary.firebaseapp.com",
+            projectId: "renukacutlary",
+            storageBucket: "renukacutlary.firebasestorage.app",
+            messagingSenderId: "822608333582",
+            appId: "1:822608333582:web:044c9635805ba5125fa55f"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        const SHIPPING_COST = 49;
+        let currentUserId = null;
+        let cart = [];
+
+        function getCartKey() { return currentUserId ? `cart_${currentUserId}` : null; }
+        function saveCart() { if (currentUserId) localStorage.setItem(getCartKey(), JSON.stringify(cart)); }
+
+        function parsePrice(price) {
+            if (typeof price === 'number') return price;
+            if (!price) return 0;
+            const cleaned = String(price).replace(/[₹,]/g, '').trim();
+            const num = parseFloat(cleaned);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function formatPrice(price) { return '₹' + parsePrice(price).toLocaleString('en-IN'); }
+
+        window.updateQuantity = function(index, change) {
+            if (!cart[index]) return;
+            const newQty = cart[index].quantity + change;
+            if (newQty > 0) cart[index].quantity = newQty;
+            else cart.splice(index, 1);
+            saveCart();
+            displayCart();
+        };
+        window.removeItem = function(index) { cart.splice(index, 1); saveCart(); displayCart(); };
+
+        function displayCart() {
+            const container = document.getElementById('cart-items');
+            if (!cart.length) {
+                container.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p><a href="products.html" class="shop-now-btn">Start Shopping</a></div>`;
+                document.getElementById('total').innerHTML = '₹0';
+                return;
+            }
+            let subtotal = 0;
+            let html = '';
+            cart.forEach((item, idx) => {
+                const price = parsePrice(item.price);
+                const qty = item.quantity;
+                const itemTotal = price * qty;
+                subtotal += itemTotal;
+                html += `<div class="cart-item">
+                            <img class="cart-item-image" src="${item.image}" alt="${item.name}" onerror="this.src='https://placehold.co/400x500/fdf5e6/8b4513?text=Product'">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${escapeHtml(item.name)}</div>
+                                <div class="cart-item-category">${escapeHtml(item.category)}</div>
+                                <div class="selected-size"><i class="fas fa-tag"></i> Size: ${escapeHtml(item.selectedSize || 'M')}</div>
+                                <div class="cart-item-price">${formatPrice(price)}</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="updateQuantity(${idx}, -1)">-</button>
+                                    <span class="quantity">${qty}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${idx}, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="remove-item" onclick="removeItem(${idx})"><i class="fas fa-trash-alt"></i></button>
+                        </div>`;
+            });
+            container.innerHTML = html;
+            const total = subtotal + SHIPPING_COST;
+            document.getElementById('total').innerHTML = formatPrice(total);
+            // store totals for checkout
+            localStorage.setItem('orderSubtotal', subtotal);
+            localStorage.setItem('orderShipping', SHIPPING_COST);
+            localStorage.setItem('orderTotal', total);
+            localStorage.setItem('orderItems', JSON.stringify(cart));
+        }
+
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+        // Load cart for current user
+        function loadCartForUser(uid) {
+            currentUserId = uid;
+            const stored = localStorage.getItem(getCartKey());
+            if (stored) {
+                try {
+                    cart = JSON.parse(stored);
+                    cart = cart.filter(item => item && typeof item === 'object').map(item => ({
+                        ...item,
+                        price: parsePrice(item.price),
+                        quantity: Math.max(1, parseInt(item.quantity) || 1),
+                        name: item.name || 'Product',
+                        category: item.category || 'Item',
+                        image: item.image || 'https://placehold.co/400x500/fdf5e6/8b4513?text=Product',
+                        selectedSize: item.selectedSize || 'M'
+                    }));
+                } catch(e) { cart = []; }
+            } else { cart = []; }
+            displayCart();
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUserId = user.uid;
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("currentUserId", user.uid);
+                localStorage.setItem("customerEmail", user.email);
+                localStorage.setItem("customerName", user.displayName || user.email.split('@')[0]);
+                document.getElementById('customer-display').innerHTML = `<i class="fas fa-user"></i> ${user.displayName || user.email.split('@')[0]}`;
+                loadCartForUser(user.uid);
+            } else {
+                currentUserId = null;
+                cart = [];
+                displayCart();
+                document.getElementById('customer-display').innerHTML = `<i class="fas fa-user"></i> Guest`;
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("currentUserId");
+            }
+        });
+
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            if (!cart.length) { alert('Cart is empty'); return; }
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                if (confirm('Please login to checkout. Go to login page?')) window.location.href = 'login.html';
+                return;
+            }
+            window.location.href = 'checkout.html';
+        });
+    </script>
+</body>
+</html>

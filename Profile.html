@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | RenukaKetlary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f9f3ec 0%, #fff3e8 100%);
+            min-height: 100vh;
+        }
+        .navigator {
+            background: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0.5rem 2rem;
+        }
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+        .logo { height: 50px; width: auto; object-fit: contain; }
+        .back-home-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: #f5f5f5;
+        }
+        .back-home-btn:hover { color: #b1624b; background: #f0e6df; }
+        .profile-container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+        }
+        .profile-card:hover { transform: translateY(-4px); }
+        .avatar-section { text-align: center; margin-bottom: 1.5rem; position: relative; }
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #b1624b;
+            cursor: pointer;
+        }
+        .edit-icon {
+            position: absolute;
+            bottom: 5px;
+            right: calc(50% - 60px);
+            background: #b1624b;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .user-info { text-align: center; margin-bottom: 2rem; }
+        #showName { font-size: 1.8rem; font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; }
+        #showEmail { font-size: 1rem; color: #666; margin-bottom: 0.5rem; }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #fefaf7;
+            border-radius: 16px;
+        }
+        .detail-item { text-align: center; padding: 0.75rem; }
+        .detail-label { font-size: 0.8rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+        .detail-value { font-size: 1rem; color: #1a1a1a; font-weight: 500; }
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-top: 1px solid #f0e6df;
+            border-bottom: 1px solid #f0e6df;
+        }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 1.5rem; font-weight: 700; color: #b1624b; }
+        .stat-label { font-size: 0.75rem; color: #999; margin-top: 0.25rem; }
+        .actions { display: flex; gap: 1rem; justify-content: center; }
+        .actions button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .edit-btn { background: #1a1a1a; color: white; }
+        .edit-btn:hover { background: #b1624b; transform: translateY(-2px); }
+        .logout-btn { background: transparent; border: 1.5px solid #e0e0e0 !important; color: #666; }
+        .logout-btn:hover { border-color: #b1624b !important; color: #b1624b; transform: translateY(-2px); }
+        .home-btn { background: #f5f5f5; color: #333; }
+        .home-btn:hover { background: #e0e0e0; transform: translateY(-2px); }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 24px;
+            position: relative;
+        }
+        .close { position: absolute; right: 1.5rem; top: 1rem; font-size: 1.8rem; cursor: pointer; color: #999; }
+        .close:hover { color: #b1624b; }
+        .edit-image-section { text-align: center; margin-bottom: 1.5rem; }
+        .edit-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem; border: 2px solid #b1624b; }
+        .upload-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .upload-btn:hover { background: #b1624b; color: white; }
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+        }
+        #saveBtn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        #saveBtn:hover { background: #b1624b; }
+        @media (max-width: 768px) {
+            .profile-container { padding: 1.5rem; }
+            .profile-card { padding: 1.5rem; }
+            .details-grid { grid-template-columns: 1fr; }
+            .actions { flex-direction: column; }
+            .actions button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navigator">
+            <div class="nav-bar">
+                <img class="logo" src="https://placehold.co/160x50/f8f0e5/8b5a2b?text=RenukaKetlary" alt="Logo">
+                <a href="index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Store</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="avatar-section">
+                <img id="profileImage" class="avatar" src="https://i.pravatar.cc/200" alt="Profile">
+                <div class="edit-icon" onclick="openFile()"><i class="fas fa-camera"></i></div>
+                <input type="file" id="imageInput" accept="image/*" hidden>
+            </div>
+            <div class="user-info">
+                <h2 id="showName">Loading...</h2>
+                <p id="showEmail">Loading...</p>
+            </div>
+            <div class="details-grid">
+                <div class="detail-item"><div class="detail-label">Phone Number</div><div class="detail-value" id="showPhone">+91 XXXXXXXX</div></div>
+                <div class="detail-item"><div class="detail-label">Member Since</div><div class="detail-value" id="memberSince">Today</div></div>
+                <div class="detail-item"><div class="detail-label">Delivery Address</div><div class="detail-value" id="showAddress">Add your address</div></div>
+                <div class="detail-item"><div class="detail-label">Account Status</div><div class="detail-value" style="color: #4caf50;">Active ✓</div></div>
+            </div>
+            <div class="stats-section">
+                <div class="stat-item"><div class="stat-number" id="orderCount">0</div><div class="stat-label">Orders</div></div>
+                <div class="stat-item"><div class="stat-number" id="wishlistCount">0</div><div class="stat-label">Wishlist</div></div>
+                <div class="stat-item"><div class="stat-number" id="reviewCount">0</div><div class="stat-label">Reviews</div></div>
+            </div>
+            <div class="actions">
+                <button class="edit-btn" onclick="openEdit()"><i class="fas fa-edit"></i> Edit Profile</button>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button class="home-btn" onclick="goHome()"><i class="fas fa-home"></i> Home</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEdit()">×</span>
+            <h3>Edit Profile</h3>
+            <div class="edit-image-section">
+                <img id="editProfileImage" class="edit-avatar" src="https://i.pravatar.cc/200" alt="Profile">
+                <label for="imageInputModal" class="upload-btn">Change Photo</label>
+                <input type="file" id="imageInputModal" accept="image/*" hidden>
+            </div>
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="tel" id="phone" placeholder="Phone Number">
+            <textarea id="address" placeholder="Your Delivery Address"></textarea>
+            <button id="saveBtn" onclick="saveProfile()">Save Changes</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDtWPGZedQ2gwGYGDyJNc4-rM3LbWUsMtY",
+            authDomain: "renukacutlary.firebaseapp.com",
+            projectId: "renukacutlary",
+            storageBucket: "renukacutlary.firebasestorage.app",
+            messagingSenderId: "822608333582",
+            appId: "1:822608333582:web:044c9635805ba5125fa55f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        window.auth = auth;
+
+        let currentUid = null;
+
+        // Helper: get storage key for current user
+        function getUserKey(baseKey) {
+            return currentUid ? `${baseKey}_${currentUid}` : null;
+        }
+
+        // Load user data from localStorage (user-scoped)
+        function loadUserData(user) {
+            currentUid = user.uid;
+            const profile = JSON.parse(localStorage.getItem(getUserKey('profile')) || '{}');
+            const name = profile.name || user.displayName || user.email.split('@')[0];
+            const email = profile.email || user.email;
+            const phone = profile.phone || "+91 Not provided";
+            const address = profile.address || "Add your delivery address";
+            const image = profile.image || null;
+            const memberSince = profile.memberSince || new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            document.getElementById("showName").textContent = name;
+            document.getElementById("showEmail").textContent = email;
+            document.getElementById("showPhone").textContent = phone;
+            document.getElementById("showAddress").textContent = address;
+            document.getElementById("memberSince").textContent = memberSince;
+            if (image) document.getElementById("profileImage").src = image;
+            
+            // Stats (also per user)
+            document.getElementById("orderCount").textContent = localStorage.getItem(getUserKey('orderCount')) || "0";
+            document.getElementById("wishlistCount").textContent = localStorage.getItem(getUserKey('wishlistCount')) || "0";
+            document.getElementById("reviewCount").textContent = localStorage.getItem(getUserKey('reviewCount')) || "0";
+            
+            if (!profile.memberSince) {
+                const profileData = { memberSince, name, email, phone, address, image };
+                localStorage.setItem(getUserKey('profile'), JSON.stringify(profileData));
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            } else {
+                loadUserData(user);
+            }
+        });
+
+        window.saveProfile = function() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const address = document.getElementById("address").value;
+            const image = document.getElementById("profileImage").src;
+            
+            const profile = {
+                name: name || document.getElementById("showName").textContent,
+                email: email || document.getElementById("showEmail").textContent,
+                phone: phone || document.getElementById("showPhone").textContent,
+                address: address || document.getElementById("showAddress").textContent,
+                image: image,
+                memberSince: document.getElementById("memberSince").textContent
+            };
+            localStorage.setItem(getUserKey('profile'), JSON.stringify(profile));
+            
+            document.getElementById("showName").textContent = profile.name;
+            document.getElementById("showEmail").textContent = profile.email;
+            document.getElementById("showPhone").textContent = profile.phone;
+            document.getElementById("showAddress").textContent = profile.address;
+            
+            const user = auth.currentUser;
+            if (user && name && name !== user.displayName) {
+                updateProfile(user, { displayName: name }).catch(console.error);
+            }
+            alert("Profile updated!");
+            closeEdit();
+        };
+
+        window.openEdit = function() {
+            const profile = JSON.parse(localStorage.getItem(getUserKey('profile')) || '{}');
+            document.getElementById("name").value = profile.name || "";
+            document.getElementById("email").value = profile.email || "";
+            document.getElementById("phone").value = profile.phone || "";
+            document.getElementById("address").value = profile.address || "";
+            document.getElementById("editProfileImage").src = document.getElementById("profileImage").src;
+            document.getElementById("editModal").style.display = "block";
+        };
+        window.closeEdit = () => document.getElementById("editModal").style.display = "none";
+        window.openFile = () => document.getElementById("imageInput").click();
+        
+        document.getElementById("imageInput")?.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const url = ev.target.result;
+                    document.getElementById("profileImage").src = url;
+                    const profile = JSON.parse(localStorage.getItem(getUserKey('profile')) || '{}');
+                    profile.image = url;
+                    localStorage.setItem(getUserKey('profile'), JSON.stringify(profile));
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        document.getElementById("imageInputModal")?.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const url = ev.target.result;
+                    document.getElementById("editProfileImage").src = url;
+                    document.getElementById("profileImage").src = url;
+                    const profile = JSON.parse(localStorage.getItem(getUserKey('profile')) || '{}');
+                    profile.image = url;
+                    localStorage.setItem(getUserKey('profile'), JSON.stringify(profile));
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        window.logout = async function() {
+            await signOut(auth);
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("currentUserId");
+            localStorage.removeItem("customerEmail");
+            localStorage.removeItem("customerName");
+            window.location.href = "login.html";
+        };
+        window.goHome = () => window.location.href = "index.html";
+        window.onclick = (event) => { if (event.target === document.getElementById("editModal")) closeEdit(); };
+    </script>
+</body>
+</html>

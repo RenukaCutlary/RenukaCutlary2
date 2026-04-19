@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Lookbook | Renuka Cutlary</title>
+  <!-- Google Fonts & Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fefcf7;
+      font-family: 'Inter', sans-serif;
+      color: #1e1e1e;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    /* refined header with logo only */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #f0ebe2;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .nav-bar {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* brand container: only logo */
+    .brand-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+
+    .brand-logo-img:hover {
+      transform: scale(1.02);
+    }
+
+    /* desktop menu */
+    .menu-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .menu-links li a {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      color: #2c2c2c;
+      transition: color 0.25s ease;
+      position: relative;
+    }
+
+    .menu-links li a:hover,
+    .menu-links li a.active-nav {
+      color: #b47c4a;
+    }
+
+    .menu-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background-color: #b47c4a;
+      transition: width 0.25s ease;
+    }
+
+    .menu-links li a:hover::after,
+    .menu-links li a.active-nav::after {
+      width: 100%;
+    }
+
+    /* nav icons */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, color 0.2s;
+      color: #2c2c2c;
+    }
+
+    .icon svg {
+      fill: currentColor;
+      transition: fill 0.2s;
+    }
+
+    .icon:hover {
+      transform: translateY(-2px);
+      color: #b47c4a;
+    }
+
+    #check, .open-menu, .close-menu {
+      display: none;
+    }
+
+    /* page title */
+    .title {
+      text-align: center;
+      padding: 4rem 2rem 2.5rem;
+      background: linear-gradient(to bottom, #fefcf7, #fbf8f2);
+    }
+
+    .title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 500;
+      color: #2e241f;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.6s ease-out;
+    }
+
+    .title p {
+      font-size: 1rem;
+      color: #7f6b5a;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LOOKBOOK GRID */
+    .lookbook-grid {
+      max-width: 1400px;
+      margin: 1rem auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .item {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      aspect-ratio: 4 / 5;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .item-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+
+    .item img,
+    .item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .item:hover img,
+    .item:hover video {
+      transform: scale(1.03);
+    }
+
+    .item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .item:hover::after {
+      opacity: 1;
+    }
+
+    .item-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #2c241f;
+      pointer-events: none;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .item:hover .item-caption {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    video {
+      background-color: #f3efea;
+    }
+
+    /* ========== FOOTER (exactly as requested) ========== */
+    .site-footer {
+      background: #1e1c19;
+      color: #e5dfd7;
+      padding: 3rem 2rem 1.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid #2f2a25;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-column {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-logo {
+      height: 48px;
+      width: auto;
+      margin-bottom: 1rem;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #cbc3b8;
+    }
+
+    .footer-column h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+      color: #f3ede5;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-column ul li a {
+      color: #cbc3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #d9af7a;
+    }
+
+    .footer-column p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: #cbc3b8;
+      line-height: 1.4;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #2f2a25;
+      font-size: 0.75rem;
+      color: #a0978b;
+    }
+
+    /* responsive */
+    @media screen and (max-width: 992px) {
+      .lookbook-grid { gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+      .title h1 { font-size: 2.6rem; }
+    }
+
+    @media screen and (max-width: 850px) {
+      .open-menu, .close-menu {
+        display: block;
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: #2c2c2c;
+      }
+      .menu-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #fffffffa;
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: -8px 0 24px rgba(0,0,0,0.05);
+        transition: 0.4s ease;
+        z-index: 2000;
+        padding: 2rem 1rem;
+        list-style: none;
+      }
+      .menu-links li a { font-size: 1.2rem; }
+      .close-menu {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.8rem;
+      }
+      #check:checked ~ .menu-links { right: 0; }
+      .nav-icons { margin-left: auto; gap: 1rem; }
+      .nav-bar { padding: 0.8rem 1.5rem; }
+      .brand-logo-img { height: 42px; }
+      .footer-container { flex-direction: column; gap: 1.5rem; }
+    }
+
+    @media screen and (max-width: 550px) {
+      .lookbook-grid { padding: 0 1.2rem; gap: 1.2rem; grid-template-columns: 1fr; }
+      .title { padding: 2.5rem 1rem 1.8rem; }
+      .title h1 { font-size: 2rem; }
+      .title p { font-size: 0.85rem; }
+    }
+
+    /* fade-in animation */
+    .item {
+      animation: appear 0.5s backwards;
+    }
+    .item:nth-child(1) { animation-delay: 0.05s; }
+    .item:nth-child(2) { animation-delay: 0.1s; }
+    .item:nth-child(3) { animation-delay: 0.15s; }
+    .item:nth-child(4) { animation-delay: 0.2s; }
+    .item:nth-child(5) { animation-delay: 0.25s; }
+    .item:nth-child(6) { animation-delay: 0.3s; }
+
+    @keyframes appear {
+      0% { opacity: 0; transform: scale(0.96); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-bar">
+    <!-- Brand: only logo -->
+    <div class="brand-container">
+      <img class="brand-logo-img" src="ChatGPT Image Oct 28, 2025, 10_45_34 AM.png" alt="Renuka Cutlary Logo">
+    </div>
+
+    <input type="checkbox" id="check">
+    <ul class="menu-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="Products.html">Our Products</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+      <li><a href="lookbook.html" class="active-nav">Lookbook</a></li>
+      <label for="check" class="close-menu"><i class="fas fa-times"></i></label>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="login.html" class="icon" title="Login">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+        </svg>
+      </a>
+      <a href="cart.html" class="icon" title="Cart">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14h9.9c.8 0 1.5-.5 1.8-1.2l3.3-6.1-1.7-.9-3 5.5H8.1L4.6 4H1v2h2.2l3.6 7.6-1.3 2.4C4.8 16.4 5.4 17 6.1 17H19v-2H7.2z"/>
+        </svg>
+      </a>
+      <label for="check" class="open-menu"><i class="fas fa-bars"></i></label>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE TITLE -->
+<div class="title">
+  <h1>the lookbook</h1>
+  <p>explore our signature edits · timeless stories</p>
+</div>
+
+<!-- LOOKBOOK GRID with your original videos & images -->
+<div class="lookbook-grid">
+  <!-- 1: VIDEO (WhatsApp Video) + link to Cosmetics.html -->
+  <div class="item">
+    <a href="Cosmetics.html" class="item-link">
+      <video autoplay muted loop playsinline>
+        <source src="WhatsApp Video 2026-03-20 at 3.43.54 PM.mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+      <div class="item-caption">cosmetic ritual</div>
+    </a>
+  </div>
+
+  <!-- 2: IMAGE dress1.jpeg + link to colours.html -->
+  <div class="item">
+    <a href="colours.html" class="item-link">
+      <img src="dress1.jpeg" alt="Dress ">
+      <div class="item-caption">Dress</div>
+    </a>
+  </div>
+
+  <!-- 3: IMAGE butterfly darbari + link to ButterflyDarbari.html -->
+  <div class="item">
+    <a href="ButterflyDarbari.html" class="item-link">
+      <img src="butterflu darbari.jpeg" alt="Butterfly Darbari">
+      <div class="item-caption">Butterfly Darbari</div>
+    </a>
+  </div>
+
+  <!-- 4: VIDEO (video2.mp4 from /videos) 
+  <div class="item">
+    <a href="Products.html?edit=video2" class="item-link">
+      <video autoplay muted loop playsinline>
+        <source src="videos/video2.mp4" type="video/mp4">
+      </video>
+      <div class="item-caption">motion silhouette</div>
+    </a>
+  </div>
+-->
+  <!-- 5: IMAGE dress3.jpg from /images 
+  <div class="item">
+    <a href="Products.html" class="item-link">
+      <img src="images/dress3.jpg" alt="Draped evening wear">
+      <div class="item-caption">sculptural elegance</div>
+    </a>
+  </div>
+-->
+  <!-- 6: VIDEO video3.mp4 from /videos 
+  <div class="item">
+    <a href="Products.html?exclusive=true" class="item-link">
+      <video autoplay muted loop playsinline>
+        <source src="videos/video3.mp4" type="video/mp4">
+      </video>
+      <div class="item-caption">exclusive edit</div>
+    </a>
+  </div>-->
+</div>
+
+<!-- ========== FOOTER (exactly as requested) ========== -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <img src="ChatGPT Image Oct 28, 2025, 10_45_34 AM.png" alt="RenukaKetlary Logo" class="footer-logo">
+      <p class="footer-text">
+        We offer a wide range of quality products to make your shopping experience smooth and enjoyable.
+      </p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lookbook.html">Lookbook</a></li>
+        <li><a href="Products.html">Products</a></li>
+        <li><a href="Contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Contact</h3>
+      <p><strong>Phone:</strong> +91 9408090552</p>
+      <p><strong>Email:</strong> RenukaCutlary@gmail.com</p>
+      <p><strong>Address:</strong> Shop No. 15, Vaishnavi Complex, Soma Talav, Vadodara, PIN 390025</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <strong>Renuka Cutlary</strong>. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    // ensure videos autoplay smoothly
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      video.setAttribute('playsinline', '');
+      video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+      video.load();
+      video.play().catch(e => console.log("autoplay blocked (user interaction needed)", e));
+    });
+    // mobile hover adjustment
+    if ('ontouchstart' in window) {
+      const style = document.createElement('style');
+      style.textContent = `.item:hover { transform: translateY(-4px); } .item:hover img, .item:hover video { transform: scale(1.02); }`;
+      document.head.appendChild(style);
+    }
+  })();
+</script>
+</body>
+</html>
