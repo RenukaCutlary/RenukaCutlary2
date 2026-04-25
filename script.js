@@ -129,7 +129,7 @@
                             localStorage.setItem("customerName", user.displayName);
                             localStorage.setItem("customerEmail", user.email);
                             localStorage.setItem("isLoggedIn", "true");
-                            window.location.href = "profile.html";
+                            window.location.href = "Profile.html";
                         })
                         .catch((error) => {
                             console.error(error);
@@ -140,5 +140,5 @@
         });
          function handleProfileClick() {
         const isLoggedIn = localStorage.getItem("isLoggedIn");
-        window.location.href = isLoggedIn === "true" ? "profile.html" : "login.html";
+        window.location.href = isLoggedIn === "true" ? "Profile.html" : "login.html";
     } 

@@ -19,7 +19,6 @@
             padding: 2rem 1.5rem;
         }
 
-        /* main product container - modern split layout */
         .product-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -34,7 +33,6 @@
             transition: all 0.2s;
         }
 
-        /* ===== GALLERY SECTION ===== */
         .product-gallery {
             position: relative;
             background: #fef8f2;
@@ -78,12 +76,8 @@
             box-shadow: 0 6px 14px rgba(0,0,0,0.1);
         }
 
-        .left {
-            left: 12px;
-        }
-        .right {
-            right: 12px;
-        }
+        .left { left: 12px; }
+        .right { right: 12px; }
 
         .thumbnails {
             display: flex;
@@ -114,7 +108,6 @@
             box-shadow: 0 0 0 2px #f0cfb0;
         }
 
-        /* ===== PRODUCT DETAILS ===== */
         .product-details {
             padding: 0.5rem 0.2rem;
         }
@@ -148,9 +141,7 @@
             margin-bottom: 1.2rem;
         }
 
-        .rating i {
-            margin-right: 2px;
-        }
+        .rating i { margin-right: 2px; }
 
         .price-section {
             display: flex;
@@ -187,7 +178,6 @@
             margin-top: 4px;
         }
 
-        /* key features / highlights */
         .feature-list {
             margin: 1.5rem 0;
             list-style: none;
@@ -209,7 +199,6 @@
             color: #b45f3b;
         }
 
-        /* ===== BUY BOX ===== */
         .buy-box {
             background: #fef9f3;
             border-radius: 1.5rem;
@@ -278,19 +267,14 @@
             gap: 10px;
         }
 
-        .cart-btn i {
-            font-size: 1.1rem;
-        }
+        .cart-btn i { font-size: 1.1rem; }
 
         .cart-btn:hover {
             background: #b45f3b;
             transform: translateY(-2px);
         }
 
-        .back-link {
-            text-decoration: none;
-            display: block;
-        }
+        .back-link { text-decoration: none; display: block; }
 
         .back-btn {
             background: transparent;
@@ -304,41 +288,6 @@
             transform: none;
         }
 
-        /* responsive */
-        @media (max-width: 1000px) {
-            .product-container {
-                grid-template-columns: 1fr;
-                gap: 1.8rem;
-                padding: 1.5rem;
-            }
-            .thumbnails img {
-                width: 60px;
-                height: 60px;
-            }
-            .title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-width: 550px) {
-            body {
-                padding: 1rem;
-            }
-            .product-container {
-                padding: 1rem;
-            }
-            .thumbnails img {
-                width: 52px;
-                height: 52px;
-            }
-            .arrow {
-                width: 36px;
-                height: 36px;
-                font-size: 1.2rem;
-            }
-        }
-
-        /* toast */
         .toast-notify {
             position: fixed;
             bottom: 25px;
@@ -359,13 +308,18 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
-        @media (max-width: 500px) {
-            .toast-notify {
-                white-space: normal;
-                text-align: center;
-                width: 80%;
-                font-size: 0.8rem;
-            }
+        @media (max-width: 1000px) {
+            .product-container { grid-template-columns: 1fr; gap: 1.8rem; padding: 1.5rem; }
+            .thumbnails img { width: 60px; height: 60px; }
+            .title { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 550px) {
+            body { padding: 1rem; }
+            .product-container { padding: 1rem; }
+            .thumbnails img { width: 52px; height: 52px; }
+            .arrow { width: 36px; height: 36px; font-size: 1.2rem; }
+            .toast-notify { white-space: normal; text-align: center; width: 80%; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -375,7 +329,7 @@
     <!-- GALLERY SECTION -->
     <div class="product-gallery">
         <button class="arrow left" onclick="prevImage()">❮</button>
-        <img id="mainImage" class="main-img" src="dress1.jpeg" alt="Kurta Set">
+        <img id="mainImage" class="main-img" src="butterflu darbari.jpeg" alt="Kurta Set">
         <button class="arrow right" onclick="nextImage()">❯</button>
         <div class="thumbnails" id="thumbnailsContainer"></div>
     </div>
@@ -396,11 +350,12 @@
         <p class="tax"><i class="fas fa-shield-alt"></i> Free shipping on orders above ₹999</p>
         
         <ul class="feature-list">
-            <li><i class="fas fa-check-circle"></i> Premium Rayon Viscose fabric</li>
-            <li><i class="fas fa-check-circle"></i> Butterfly & floral hand block print</li>
-            <li><i class="fas fa-check-circle"></i> Straight kurta with palazzo & dupatta</li>
-            <li><i class="fas fa-check-circle"></i> Ethical & sustainable</li>
-        </ul>
+            <li><i class="fas fa-check-circle"></i> Traditional Bandhani-inspired print design</li>
+            <li><i class="fas fa-check-circle"></i> Soft & breathable rayon fabric for all-day comfort</li>
+            <li><i class="fas fa-check-circle"></i> Straight kurta paired with matching pants</li>
+            <li><i class="fas fa-check-circle"></i> Contrast dupatta with elegant border detailing</li>
+            <li><i class="fas fa-check-circle"></i>Perfect for festive & casual ethnic wear</li>
+        </ul>   
     </div>
 
     <!-- BUY BOX -->
@@ -408,7 +363,8 @@
         <h2 class="price">₹500</h2>
         <p class="stock"><i class="fas fa-check-circle"></i> In Stock | Ready to Ship</p>
         
-        <!-- Size selector 
+        <!-- Size selector (optional – uncomment if needed) -->
+        <!--
         <div class="size-selector">
             <span style="font-size:0.8rem; font-weight:500;">Select Size:</span>
             <span class="size-option" data-size="S">S</span>
@@ -417,7 +373,8 @@
             <span class="size-option" data-size="XL">XL</span>
             <span class="size-option" data-size="XXL">XXL</span>
         </div>
-    -->
+        -->
+
         <button class="cart-btn" id="addToCartBtn"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
         <a href="dress.html" class="back-link">
             <button class="cart-btn back-btn"><i class="fas fa-arrow-left"></i> Back to Collection</button>
@@ -430,8 +387,109 @@
 
 <div id="cartToast" class="toast-notify">✨ Item added to cart</div>
 
-<script>
-    // ---------- IMAGE GALLERY ----------
+<!-- Firebase Module Script -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // Firebase Config (same as your project)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDtWPGZedQ2gwGYGDyJNc4-rM3LbWUsMtY",
+        authDomain: "renukacutlary.firebaseapp.com",
+        projectId: "renukacutlary",
+        storageBucket: "renukacutlary.firebasestorage.app",
+        messagingSenderId: "822608333582",
+        appId: "1:822608333582:web:044c9635805ba5125fa55f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Global variable for current user ID
+    let currentUserId = null;
+
+    // ---------- Helper: user‑scoped cart key ----------
+    function getCartKey() {
+        if (!currentUserId) return null;
+        return `cart_${currentUserId}`;
+    }
+
+    // Get cart for logged‑in user only
+    function getCart() {
+        const key = getCartKey();
+        if (!key) return null;
+        const stored = localStorage.getItem(key);
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    function saveCart(cart) {
+        const key = getCartKey();
+        if (key) {
+            localStorage.setItem(key, JSON.stringify(cart));
+        }
+    }
+
+    // ---------- Product definition ----------
+    const PRODUCT = {
+        id: "Mayuri_Bandhani_001",
+        name: "Mayuri Bandhani",
+        category: "Kurta Set",
+        price: 500,       // consistent with displayed price
+        image: document.getElementById('mainImage')?.src || "dress1.jpeg"
+    };
+
+    let selectedSize = "M";   // default size
+
+    // Update image reference when gallery changes
+    function updateProductImage() {
+        const mainImg = document.getElementById('mainImage');
+        if (mainImg) PRODUCT.image = mainImg.src;
+    }
+
+    // Add to cart function (only if logged in)
+    function addToCartAndRedirect() {
+        if (!currentUserId) {
+            // Not logged in → redirect to login page
+            if (confirm("Please login to add items to cart. Go to login page?")) {
+                window.location.href = "login.html";
+            }
+            return;
+        }
+
+        updateProductImage();   // use the current displayed image
+
+        let cart = getCart();
+        if (!cart) cart = [];
+
+        const existingIndex = cart.findIndex(item => item.id === PRODUCT.id && item.selectedSize === selectedSize);
+
+        if (existingIndex !== -1) {
+            cart[existingIndex].quantity += 1;
+        } else {
+            cart.push({
+                id: PRODUCT.id,
+                name: PRODUCT.name,
+                price: PRODUCT.price,
+                category: PRODUCT.category,
+                image: PRODUCT.image,
+                selectedSize: selectedSize,
+                quantity: 1
+            });
+        }
+
+        saveCart(cart);
+
+        // Visual feedback
+        const btn = document.getElementById('addToCartBtn');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+        btn.style.background = '#2c6e2c';
+        setTimeout(() => {
+            window.location.href = 'cart.html';
+        }, 200);
+    }
+
+    // ---------- Image Gallery (unchanged) ----------
     const imageList = [
         "dress1.jpeg",
         "dress2.jpeg",
@@ -465,6 +523,7 @@
         if(index >= imageList.length) index = imageList.length - 1;
         currentIndex = index;
         mainImg.src = imageList[currentIndex];
+        PRODUCT.image = mainImg.src;
         document.querySelectorAll('.thumbnails img').forEach((thumb, i) => {
             if(i === currentIndex) thumb.classList.add('active-thumb');
             else thumb.classList.remove('active-thumb');
@@ -483,25 +542,12 @@
         changeImageByIndex(newIndex);
     };
     
-    // Keyboard support
     document.addEventListener('keydown', (e) => {
         if(e.key === 'ArrowLeft') { prevImage(); e.preventDefault(); }
         else if(e.key === 'ArrowRight') { nextImage(); e.preventDefault(); }
     });
-    
-    // ---------- ADD TO CART (unified with cart page) ----------
-    // Product info
-    const PRODUCT = {
-        id: "kurta_mayuri_001",
-        name: "Mayuri Bandhani Kurta with Pant & Dupatta",
-        category: "Kurta Set",
-        price: 819,
-        image: mainImg.src  // will use current main image
-    };
-    
-    // Track selected size
-    let selectedSize = "M";
-    
+
+    // ---------- Size selector (if enabled) ----------
     function initSizeSelector() {
         const sizeOptions = document.querySelectorAll('.size-option');
         sizeOptions.forEach(opt => {
@@ -513,87 +559,47 @@
             if(opt.dataset.size === 'M') opt.classList.add('active-size');
         });
     }
-    
-    // Helper to get current cart
-    function getCart() {
-        const stored = localStorage.getItem('cart');
-        return stored ? JSON.parse(stored) : [];
-    }
-    
-    function saveCart(cart) {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-    
-    function addToCart() {
-        // Use the current main image (could be any thumbnail)
-        const currentImage = mainImg.src;
-        
-        // Check if item with same ID and same selected size already exists
-        let cart = getCart();
-        const existingIndex = cart.findIndex(item => item.id === PRODUCT.id && item.selectedSize === selectedSize);
-        
-        if (existingIndex !== -1) {
-            cart[existingIndex].quantity += 1;
+
+    // ---------- Firebase Auth: listen to login state ----------
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            currentUserId = user.uid;
+            // Also update global login flags for consistency
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("currentUserId", user.uid);
+            localStorage.setItem("customerEmail", user.email);
+            localStorage.setItem("customerName", user.displayName || user.email.split('@')[0]);
         } else {
-            cart.push({
-                id: PRODUCT.id,
-                name: PRODUCT.name,
-                price: PRODUCT.price,
-                category: PRODUCT.category,
-                image: currentImage,
-                selectedSize: selectedSize,
-                quantity: 1
-            });
+            currentUserId = null;
+            // Do NOT clear localStorage here – keep existing flags for other pages
         }
-        
-        saveCart(cart);
-        
-        // Show toast with size info
-        const toast = document.getElementById('cartToast');
-        toast.textContent = `🦋 Added ${PRODUCT.name} (Size ${selectedSize}) · ₹${PRODUCT.price}`;
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateX(-50%) scale(1)';
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateX(-50%) scale(0.9)';
-        }, 2000);
-        
-        // Button animation
-        const btn = document.getElementById('addToCartBtn');
-        const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-check"></i> Added!';
-        btn.style.background = '#2c6e2c';
-        setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.style.background = '#2d241e';
-        }, 1000);
-    }
-    
-    // ---------- INITIALIZATION ----------
+    });
+
+    // ---------- DOM Ready ----------
     document.addEventListener('DOMContentLoaded', () => {
         renderThumbnails();
         if(imageList.length) mainImg.src = imageList[0];
+        PRODUCT.image = mainImg.src;
         initSizeSelector();
-        
+
         // Attach cart button event
         const cartBtn = document.getElementById('addToCartBtn');
         if(cartBtn) {
-            // remove any old listener by cloning
             const newBtn = cartBtn.cloneNode(true);
             cartBtn.parentNode.replaceChild(newBtn, cartBtn);
             newBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                addToCart();
+                addToCartAndRedirect();
             });
         }
-        
+
         // Fallback for broken images
         const allImgs = document.querySelectorAll('img');
         allImgs.forEach(img => {
             img.addEventListener('error', function() {
                 if(!this.dataset.fallback) {
                     this.dataset.fallback = 'true';
-                    this.src = 'https://placehold.co/800x800/f7e9df/c2825a?text=Butterfly+Darbari';
+                    this.src = 'https://placehold.co/800x800/f7e9df/c2825a?text=Mayuri+Bandhani';
                 }
             });
         });

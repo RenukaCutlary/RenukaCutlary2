@@ -67,7 +67,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const SHIPPING_COST = 49;
+        // Removed SHIPPING_COST – cart total now equals subtotal only
         let currentUserId = null;
         let cart = [];
 
@@ -99,6 +99,11 @@
             if (!cart.length) {
                 container.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-bag"></i><p>Your cart is empty</p><a href="products.html" class="shop-now-btn">Start Shopping</a></div>`;
                 document.getElementById('total').innerHTML = '₹0';
+                // Clear any leftover order data
+                localStorage.removeItem('orderSubtotal');
+                localStorage.removeItem('orderShipping');
+                localStorage.removeItem('orderTotal');
+                localStorage.removeItem('orderItems');
                 return;
             }
             let subtotal = 0;
@@ -125,11 +130,12 @@
                         </div>`;
             });
             container.innerHTML = html;
-            const total = subtotal + SHIPPING_COST;
+            // Total is now exactly subtotal (no hidden shipping fee)
+            const total = subtotal;
             document.getElementById('total').innerHTML = formatPrice(total);
-            // store totals for checkout
+            // Store data for checkout (shipping = 0, total = subtotal)
             localStorage.setItem('orderSubtotal', subtotal);
-            localStorage.setItem('orderShipping', SHIPPING_COST);
+            localStorage.setItem('orderShipping', 0);
             localStorage.setItem('orderTotal', total);
             localStorage.setItem('orderItems', JSON.stringify(cart));
         }

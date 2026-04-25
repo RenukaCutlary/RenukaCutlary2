@@ -377,6 +377,12 @@
         };
         window.goHome = () => window.location.href = "index.html";
         window.onclick = (event) => { if (event.target === document.getElementById("editModal")) closeEdit(); };
+        const customerAddress = {
+  fullAddress: "123 Main Street, Vadodara, Gujarat 390001",
+  lat: 22.3072,   // optional, if you geocode
+  lng: 73.1812
+};
+localStorage.setItem('customerAddress', JSON.stringify(customerAddress));
     </script>
 </body>
 </html>
