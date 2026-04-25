@@ -255,10 +255,32 @@ document.getElementById("cod").onclick = () => {
     online.classList.remove("selected");
 };
 
+/* DELIVERY CALCULATION */
+function calculateDelivery(address) {
+    if (!address) return 120;
+
+    address = address.toLowerCase();
+
+    if (address.includes("ahmedabad")) return 70;
+    if (address.includes("vadodara")) return 30;
+    if (address.includes("surat")) return 90;
+
+
+    return 120;
+}
+
 /* LOAD CART DATA */
 function loadSummary() {
     const items = JSON.parse(localStorage.getItem("orderItems")) || [];
-    const total = parseFloat(localStorage.getItem("orderTotal")) || 0;
+    const subtotal = parseFloat(localStorage.getItem("orderSubtotal")) || 0;
+
+    // 🔥 GET USER ADDRESS
+    const userAddress = localStorage.getItem("customerAddress");
+
+    // 🔥 CALCULATE DELIVERY
+    const delivery = calculateDelivery(userAddress);
+
+    const total = subtotal + delivery;
 
     let html = `<h3>Order Summary</h3>`;
 
@@ -271,12 +293,27 @@ function loadSummary() {
     });
 
     html += `
-    <div class="total-row">
-        <span>Total</span>
-        <span>₹${total}</span>
-    </div>`;
+        <div class="cart-item">
+            <span>Subtotal</span>
+            <span>₹${subtotal}</span>
+        </div>
+
+        <div class="cart-item">
+            <span>Delivery</span>
+            <span>₹${delivery}</span>
+        </div>
+
+        <div class="total-row">
+            <span>Total</span>
+            <span>₹${total}</span>
+        </div>
+    `;
 
     document.getElementById("orderSummary").innerHTML = html;
+
+    // ✅ Save updated values
+    localStorage.setItem("orderShipping", delivery);
+    localStorage.setItem("orderTotal", total);
 
     return total;
 }
@@ -286,12 +323,12 @@ const totalAmount = loadSummary();
 /* RAZORPAY */
 function payNow(amount) {
     const options = {
-        key: "rzp_live_SJ7b95GLSEQjPp", // 🔴 replace
-        amount: amount * 100, // convert to paisa
+        key: "rzp_live_SJ7b95GLSEQjPp",
+        amount: amount * 100,
         currency: "INR",
         name: "RenukaKetlary",
         description: "Order Payment",
-        handler: function (response) {
+        handler: function () {
             alert("✅ Payment Successful!");
         },
         theme: { color: "#b1624b" }

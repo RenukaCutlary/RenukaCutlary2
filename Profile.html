@@ -273,6 +273,7 @@
             document.getElementById("showEmail").textContent = email;
             document.getElementById("showPhone").textContent = phone;
             document.getElementById("showAddress").textContent = address;
+            localStorage.setItem("customerAddress", address);
             document.getElementById("memberSince").textContent = memberSince;
             if (image) document.getElementById("profileImage").src = image;
             
@@ -295,36 +296,41 @@
             }
         });
 
-        window.saveProfile = function() {
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const phone = document.getElementById("phone").value;
-            const address = document.getElementById("address").value;
-            const image = document.getElementById("profileImage").src;
-            
-            const profile = {
-                name: name || document.getElementById("showName").textContent,
-                email: email || document.getElementById("showEmail").textContent,
-                phone: phone || document.getElementById("showPhone").textContent,
-                address: address || document.getElementById("showAddress").textContent,
-                image: image,
-                memberSince: document.getElementById("memberSince").textContent
-            };
-            localStorage.setItem(getUserKey('profile'), JSON.stringify(profile));
-            
-            document.getElementById("showName").textContent = profile.name;
-            document.getElementById("showEmail").textContent = profile.email;
-            document.getElementById("showPhone").textContent = profile.phone;
-            document.getElementById("showAddress").textContent = profile.address;
-            
-            const user = auth.currentUser;
-            if (user && name && name !== user.displayName) {
-                updateProfile(user, { displayName: name }).catch(console.error);
-            }
-            alert("Profile updated!");
-            closeEdit();
-        };
+       window.saveProfile = function() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const address = document.getElementById("address").value;
+    const image = document.getElementById("profileImage").src;
 
+    const profile = {
+        name: name || document.getElementById("showName").textContent,
+        email: email || document.getElementById("showEmail").textContent,
+        phone: phone || document.getElementById("showPhone").textContent,
+        address: address || document.getElementById("showAddress").textContent,
+        image: image,
+        memberSince: document.getElementById("memberSince").textContent
+    };
+
+    localStorage.setItem(getUserKey('profile'), JSON.stringify(profile));
+
+    // ✅ UPDATE UI
+    document.getElementById("showName").textContent = profile.name;
+    document.getElementById("showEmail").textContent = profile.email;
+    document.getElementById("showPhone").textContent = profile.phone;
+    document.getElementById("showAddress").textContent = profile.address;
+
+    // ✅🔥 VERY IMPORTANT: SAVE ADDRESS FOR DELIVERY SYSTEM
+    localStorage.setItem("customerAddress", profile.address);
+
+    const user = auth.currentUser;
+    if (user && name && name !== user.displayName) {
+        updateProfile(user, { displayName: name }).catch(console.error);
+    }
+
+    alert("Profile updated!");
+    closeEdit();
+};
         window.openEdit = function() {
             const profile = JSON.parse(localStorage.getItem(getUserKey('profile')) || '{}');
             document.getElementById("name").value = profile.name || "";
@@ -377,12 +383,7 @@
         };
         window.goHome = () => window.location.href = "index.html";
         window.onclick = (event) => { if (event.target === document.getElementById("editModal")) closeEdit(); };
-        const customerAddress = {
-  fullAddress: "123 Main Street, Vadodara, Gujarat 390001",
-  lat: 22.3072,   // optional, if you geocode
-  lng: 73.1812
-};
-localStorage.setItem('customerAddress', JSON.stringify(customerAddress));
+
     </script>
 </body>
 </html>
