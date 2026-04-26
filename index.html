@@ -100,7 +100,9 @@
         // Hero slider & scroll animation
         const hero = document.querySelector('.hero1');
         if (hero) {
-            const images = ['url("https://placehold.co/1920x600/f9f3ec/8b5a2b?text=Banner+1")','url("https://placehold.co/1920x600/fefaf7/b1624b?text=Banner+2")','url("https://placehold.co/1920x600/f8f0e5/8b4513?text=Banner+3")'];
+            const images = ['url("https://static.vecteezy.com/system/resources/previews/029/783/765/large_2x/collection-of-makeup-products-and-brushes-glamorous-beauty-essentials-free-photo.jpg")',
+            'url("https://okcredit-blog-images-prod.storage.googleapis.com/2021/03/shutterstock_549956632.jpg")',
+            'url("https://tse4.mm.bing.net/th/id/OIP.vOtdaRN7ogZWAxROZk2vCwHaHa?pid=Api&P=0&h=180")'];
             let index = 0;
             setInterval(() => { index = (index+1)%images.length; hero.style.backgroundImage = images[index]; }, 2500);
         }
